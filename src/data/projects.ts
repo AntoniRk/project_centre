@@ -5,7 +5,7 @@ export const projects: Project[] = [
     {
         id: 1,
         title: 'Task Management App',
-        description: 'A drag-and-drop task management application with Kanban board layout',
+        description: 'Aplikacja do zarządzania zadaniami z możliwością dodawania, usuwania, edycji i przenoszenia zadań między kolumnami',
         //        imageUrl: 'https://via.placeholder.com/300x200',
         technologies: ['React', 'TypeScript', 'Material UI', 'DnD-Kit', 'LocalStorage'],
         path: '/projects/task-manager'
@@ -13,9 +13,16 @@ export const projects: Project[] = [
     {
         id: 2,
         title: 'Todo Application',
-        description: 'A feature-rich todo list application with filtering and priority management',
+        description: 'Lista zadań z możliwością dodawania, usuwania i oznaczania jako wykonane',
         //        imageUrl: 'https://via.placeholder.com/300x200',
         technologies: ['React', 'TypeScript', 'Material UI', 'LocalStorage'],
         path: '/projects/todo'
     },
+    {
+        id: 3,
+        title: 'Component Analyzer',
+        description: 'Narzędzie do analizy i optymalizacji wydajności komponentów React',
+        technologies: ['React', 'TypeScript', 'Performance API', 'React Internals'],
+        path: '/projects/component-analyzer'
+      },
 ];
