@@ -2,7 +2,7 @@
 ## React, TypeScript, React Router, React DnD
 ### Current projects
 - To Do List
-- User LDAP search engine
+- Task Manager
 
 A simple project that uses React Router to navigate between already created projects and new ones created under this project.
 
