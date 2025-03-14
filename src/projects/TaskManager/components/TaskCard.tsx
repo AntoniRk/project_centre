@@ -10,7 +10,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
-  CardActionArea
+  // Usuwamy CardActionArea
 } from '@mui/material';
 import { 
   MoreVert as MoreVertIcon, 
@@ -97,10 +97,16 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
         cursor: 'grab',
         '&:active': {
           cursor: 'grabbing'
+        },
+        // Dodajemy hover effect, który był na CardActionArea
+        '&:hover': {
+          backgroundColor: 'action.hover'
         }
       }}
+      onClick={onEdit} // Przenosimy onClick tutaj
     >
-      <CardActionArea onClick={onEdit}>
+      {/* Zastępujemy CardActionArea zwykłym Box */}
+      <Box>
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <Typography variant="h6" component="div" sx={{ mb: 1, pr: 4 }}>
@@ -152,7 +158,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
             </Box>
           )}
         </CardContent>
-      </CardActionArea>
+      </Box>
       
       <Menu
         id="task-menu"
