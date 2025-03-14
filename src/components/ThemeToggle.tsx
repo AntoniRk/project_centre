@@ -1,4 +1,3 @@
-// src/components/ThemeToggle.tsx
 import React from 'react';
 import { IconButton, IconButtonProps, Tooltip, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';

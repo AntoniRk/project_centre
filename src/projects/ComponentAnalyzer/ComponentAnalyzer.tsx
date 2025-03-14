@@ -6,6 +6,7 @@ import ControlPanel from './ControlPanel';
 import { patchReactInternals, restoreReactInternals } from './utils/reactInternals';
 import { findReactComponentFromDOMNode } from './utils/componentFinder';
 import { setupPerformanceObserver } from './utils/metricsCollector';
+import { overlayStyles } from './utils/analyzerStyles';
 
 interface ComponentData {
   [componentId: string]: {
@@ -33,7 +34,6 @@ const ComponentAnalyzer: React.FC = () => {
         [id]: {
           ...prev[id],
           ...data,
-          renderCount: (prev[id]?.renderCount || 0) + 1
         }
       }));
     });
@@ -44,16 +44,20 @@ const ComponentAnalyzer: React.FC = () => {
       entries.forEach(entry => {
         if (entry.entryType === 'measure' && entry.name.startsWith('React-render-')) {
           const componentId = entry.name.replace('React-render-', '');
-          setComponentData(prev => ({
-            ...prev,
-            [componentId]: {
-              ...prev[componentId],
-              lastRenderDuration: entry.duration,
-              averageRenderDuration: prev[componentId] 
-                ? (prev[componentId].averageRenderDuration * prev[componentId].renderCount + entry.duration) / (prev[componentId].renderCount + 1)
-                : entry.duration
-            }
-          }));
+          setComponentData(prev => {
+            if (!prev[componentId]) return prev;
+            
+            return {
+              ...prev,
+              [componentId]: {
+                ...prev[componentId],
+                lastRenderDuration: entry.duration,
+                averageRenderDuration: prev[componentId] 
+                  ? (prev[componentId].averageRenderDuration * prev[componentId].renderCount + entry.duration) / (prev[componentId].renderCount + 1)
+                  : entry.duration
+              }
+            };
+          });
         }
       });
     });
@@ -83,7 +87,7 @@ const ComponentAnalyzer: React.FC = () => {
   
   // Render analyzer overlay using portal
   return createPortal(
-    <div className="component-analyzer-container" style={{ position: 'fixed', zIndex: 9999, pointerEvents: 'none' }}>
+    <div className="component-analyzer-container" style={overlayStyles.container}>
       <ControlPanel 
         isInspectionModeActive={isInspectionModeActive}
         onToggleInspectionMode={() => setIsInspectionModeActive(!isInspectionModeActive)}

@@ -3,7 +3,7 @@
 ### Current projects
 - To Do List
 - Task Manager
-- Component Analyzer
+- Component Analyzer (dzikie i bez sensu)
 
 A simple project that uses React Router to navigate between already created projects and new ones created under this project.
 

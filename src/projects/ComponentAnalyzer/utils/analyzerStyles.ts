@@ -1,6 +1,3 @@
-// src/projects/ComponentAnalyzer/utils/analyzerStyles.ts
-
-// Definiujemy style jako obiekty
 export const overlayStyles = {
     container: {
       position: 'fixed',
