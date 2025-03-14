@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Lobby from './pages/Lobby';
 import ProjectDetails from './pages/ProjectDetails';
 import TodoApp from './projects/TodoApp';
+import TaskManager from './projects/TaskManager/TaskManager';
 import './App.css';
 
 const App: React.FC = () => {
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Lobby />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/projects/todo" element={<TodoApp />} />
+          <Route path="/projects/task-manager" element={<TaskManager />} />
         </Routes>
       </Router>
     </ThemeProvider>
