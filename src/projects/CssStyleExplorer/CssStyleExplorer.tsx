@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTheme } from '@mui/material';
 import {
     Box,
     Grid,
@@ -28,6 +29,7 @@ import StylePreview from './StylePreview';
 import './CssStyleExplorer.css';
 
 const CssStyleExplorer: React.FC = () => {
+    const theme = useTheme();
     const [activeStyles, setActiveStyles] = useState<Record<string, string>>({});
     const [expandedCategory, setExpandedCategory] = useState<string | false>("layout");
     const [customElementContent, setCustomElementContent] = useState<string>("Element testowy");
@@ -153,7 +155,8 @@ const CssStyleExplorer: React.FC = () => {
             );
         }
 
-        // Dla właściwości z wartościami kolorów
+        // W funkcji renderPropertyControl w CssStyleExplorer.tsx
+        // Dla właściwości typu color:
         if (property.type === 'color') {
             return (
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -161,6 +164,7 @@ const CssStyleExplorer: React.FC = () => {
                         type="color"
                         value={currentValue || '#000000'}
                         onChange={(e) => handleStyleChange(property.name, e.target.value)}
+                        className={theme.palette.mode === 'dark' ? 'dark-mode-color-input' : ''}
                     />
                     <TextField
                         size="small"
@@ -168,12 +172,18 @@ const CssStyleExplorer: React.FC = () => {
                         onChange={(e) => handleStyleChange(property.name, e.target.value)}
                         placeholder={property.placeholder || ''}
                         fullWidth
+                        // Dodaj style dla trybu ciemnego
+                        sx={{
+                            '& .MuiInputBase-input': {
+                                color: theme.palette.mode === 'dark' ? '#fff' : 'inherit'
+                            }
+                        }}
                     />
                 </Box>
             );
         }
 
-        // Dla standardowych właściwości tekstowych
+        // Dla standardowych właściwości tekstowych:
         return (
             <TextField
                 size="small"
@@ -181,6 +191,12 @@ const CssStyleExplorer: React.FC = () => {
                 onChange={(e) => handleStyleChange(property.name, e.target.value)}
                 placeholder={property.placeholder || ''}
                 fullWidth
+                // Dodaj style dla trybu ciemnego
+                sx={{
+                    '& .MuiInputBase-input': {
+                        color: theme.palette.mode === 'dark' ? '#fff' : 'inherit'
+                    }
+                }}
             />
         );
     };
@@ -208,8 +224,21 @@ const CssStyleExplorer: React.FC = () => {
                                 key={category}
                                 expanded={expandedCategory === category}
                                 onChange={handleAccordionChange(category)}
+                                sx={{
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'inherit',
+                                    border: theme.palette.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'
+                                }}
                             >
-                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon
+                                        sx={{ color: theme.palette.mode === 'dark' ? '#fff' : 'inherit' }}
+                                    />}
+                                    sx={{
+                                        backgroundColor: theme.palette.mode === 'dark'
+                                            ? 'rgba(255, 255, 255, 0.05)'
+                                            : 'rgba(0, 0, 0, 0.03)'
+                                    }}
+                                >
                                     <Typography variant="subtitle1">
                                         {category.charAt(0).toUpperCase() + category.slice(1)}
                                     </Typography>
@@ -218,7 +247,14 @@ const CssStyleExplorer: React.FC = () => {
                                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                         {properties.map(property => (
                                             <Box key={property.name} sx={{ mb: 2 }}>
-                                                <Typography variant="body2" fontWeight="medium" gutterBottom>
+                                                <Typography
+                                                    variant="body2"
+                                                    fontWeight="medium"
+                                                    gutterBottom
+                                                    sx={{
+                                                        color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark
+                                                    }}
+                                                >
                                                     {property.label} ({property.name})
                                                 </Typography>
                                                 {renderPropertyControl(property)}
@@ -252,12 +288,13 @@ const CssStyleExplorer: React.FC = () => {
                                 <Divider sx={{ mb: 2 }} />
                                 <Box sx={{
                                     height: '300px',
-                                    border: '1px dashed #ccc',
+                                    border: `1px dashed ${theme.palette.mode === 'dark' ? '#777' : '#ccc'}`,
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     position: 'relative',
-                                    overflow: 'auto'
+                                    overflow: 'auto',
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'
                                 }}>
                                     <StylePreview styles={activeStyles} content={customElementContent} />
                                 </Box>
@@ -266,7 +303,19 @@ const CssStyleExplorer: React.FC = () => {
 
                         {/* Kod CSS */}
                         <Grid item xs={12}>
-                            <Paper elevation={3} sx={{ p: 2 }}>
+                            <Paper
+                                elevation={3}
+                                sx={{
+                                    p: 2,
+                                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'grey.100',
+                                    color: theme.palette.mode === 'dark' ? '#fff' : 'inherit',
+                                    fontFamily: 'monospace',
+                                    minHeight: '150px',
+                                    whiteSpace: 'pre-wrap',
+                                    border: theme.palette.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'
+                                }}
+                            >
+                                {cssCode || 'Nie wybrano jeszcze żadnych stylów.'}
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
                                     <Typography variant="h6">
                                         Wygenerowany kod CSS
@@ -277,7 +326,11 @@ const CssStyleExplorer: React.FC = () => {
                                             color="error"
                                             size="small"
                                             onClick={handleResetStyles}
-                                            sx={{ mr: 1 }}
+                                            sx={{
+                                                mr: 1,
+                                                borderColor: theme.palette.mode === 'dark' ? theme.palette.error.dark : undefined,
+                                                color: theme.palette.mode === 'dark' ? theme.palette.error.light : undefined
+                                            }}
                                         >
                                             Resetuj
                                         </Button>
@@ -288,6 +341,9 @@ const CssStyleExplorer: React.FC = () => {
                                                 size="small"
                                                 startIcon={<ContentCopyIcon />}
                                                 onClick={handleCopyCode}
+                                                sx={{
+                                                    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : undefined
+                                                }}
                                             >
                                                 Kopiuj
                                             </Button>
@@ -299,7 +355,8 @@ const CssStyleExplorer: React.FC = () => {
                                     elevation={0}
                                     sx={{
                                         p: 2,
-                                        bgcolor: 'grey.100',
+                                        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)',
+                                        color: theme.palette.mode === 'dark' ? '#fff' : 'inherit',
                                         fontFamily: 'monospace',
                                         minHeight: '150px',
                                         whiteSpace: 'pre-wrap'
@@ -312,7 +369,7 @@ const CssStyleExplorer: React.FC = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Box>
+        </Box >
     );
 };
 

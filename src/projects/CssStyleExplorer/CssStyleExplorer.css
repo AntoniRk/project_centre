@@ -1,8 +1,15 @@
 .css-explorer-preview-element {
-    padding: 20px;
-    min-width: 100px;
-    min-height: 50px;
-    background-color: #f0f0f0;
-    text-align: center;
     transition: all 0.3s ease;
-}
+  }
+  
+  /* Style dla input color w trybie ciemnym */
+  .dark-mode-color-input {
+    border: 1px solid #777;
+    background: #333;
+    padding: 2px;
+  }
+  
+  /* Poprawki dla kontrolek radio w trybie ciemnym */
+  .MuiRadio-root.Mui-checked {
+    color: var(--mui-palette-primary-main);
+  }

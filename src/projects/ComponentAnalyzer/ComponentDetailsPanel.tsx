@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@mui/material';
 
 interface ComponentDetailsPanelProps {
   componentId: string;
@@ -12,11 +13,12 @@ interface ComponentDetailsPanelProps {
   onClose: () => void;
 }
 
-const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({ 
-  componentId, 
-  data, 
-  onClose 
+const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({
+  componentId,
+  data,
+  onClose
 }) => {
+  const theme = useTheme(); 
   return (
     <div style={{
       position: 'fixed',
@@ -25,7 +27,7 @@ const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({
       width: '300px',
       maxHeight: '400px',
       overflowY: 'auto',
-      backgroundColor: 'white',
+      backgroundColor: theme.palette.mode === 'dark' ? 'grey' : 'white',
       borderRadius: '4px',
       boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
       zIndex: 10002,
@@ -34,7 +36,7 @@ const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
         <h3 style={{ margin: 0, fontSize: '16px' }}>{data.name}</h3>
-        <button 
+        <button
           onClick={onClose}
           style={{
             background: 'none',
@@ -46,7 +48,7 @@ const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({
           ×
         </button>
       </div>
-      
+
       <div style={{ marginBottom: '15px' }}>
         <div style={{ fontSize: '14px', marginBottom: '5px' }}>
           <strong>ID:</strong> {componentId}
@@ -61,21 +63,22 @@ const ComponentDetailsPanel: React.FC<ComponentDetailsPanelProps> = ({
           <strong>Średni czas renderowania:</strong> {data.averageRenderDuration.toFixed(2)}ms
         </div>
       </div>
-      
+
       <div>
         <h4 style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Props:</h4>
-        <pre style={{ 
-          backgroundColor: '#f5f5f5', 
-          padding: '10px', 
+        <pre style={{
+          backgroundColor: '#f5f5f5',
+          padding: '10px',
           borderRadius: '4px',
           fontSize: '12px',
           overflow: 'auto',
-          maxHeight: '200px'
+          maxHeight: '200px',
+          color: theme.palette.mode === 'dark' ? 'black' : '#333'
         }}>
           {JSON.stringify(data.props, null, 2)}
         </pre>
       </div>
-      
+
       <div style={{ marginTop: '15px' }}>
         <h4 style={{ margin: '0 0 5px 0', fontSize: '14px' }}>Optymalizacja:</h4>
         <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '12px' }}>

@@ -51,8 +51,8 @@ const About: React.FC = () => {
           p: 4,
           mb: 4,
           borderRadius: 2,
-          background: `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
-          color: 'white'
+          background: theme.palette.mode === 'dark' ? '#4a1801' : '#d94907',
+          color: 'white' 
         }}
       >
         <Grid container spacing={4} alignItems="center">

@@ -61,7 +61,7 @@ const App: React.FC = () => {
               style={{
                 position: 'fixed',
                 bottom: 20,
-                right: 20,
+                left: 20,
                 zIndex: 10000
               }}
               onClick={() => setAnalyzerActive(false)}

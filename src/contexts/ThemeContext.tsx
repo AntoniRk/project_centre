@@ -44,10 +44,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         palette: {
           mode,
           primary: {
-            main: mode === 'light' ? '#2196f3' : '#90caf9',
+            main: mode === 'light' ? '#f36021' : '#e08646',
           },
           secondary: {
-            main: mode === 'light' ? '#f50057' : '#f48fb1',
+            main: mode === 'light' ? '#f50000' : '#f53842',
           },
           background: {
             default: mode === 'light' ? '#f5f5f5' : '#121212',
