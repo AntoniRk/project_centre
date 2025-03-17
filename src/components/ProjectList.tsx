@@ -22,7 +22,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         {projects.length === 0 && (
           <Box sx={{ textAlign: 'center', py: 8 }}>
             <Typography variant="h5" color="text.secondary">
-              No projects found
+              Brak projektów
             </Typography>
           </Box>
         )}

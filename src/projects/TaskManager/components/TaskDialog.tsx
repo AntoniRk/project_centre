@@ -93,7 +93,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
   const handleSubmit = () => {
     // Walidacja
     if (title.trim() === '') {
-      setTitleError('Title is required');
+      setTitleError('Tytuł nie może być pusty');
       return;
     }
     
@@ -113,13 +113,13 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
   
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{task ? 'Edit Task' : 'Create New Task'}</DialogTitle>
+      <DialogTitle>{task ? 'Edytuj zadanie' : 'Stwórz nowe zadanie'}</DialogTitle>
       <DialogContent>
         <Box component="form" sx={{ mt: 1 }}>
           <TextField
             autoFocus
             margin="dense"
-            label="Task Title"
+            label="Tytuł zadania"
             fullWidth
             value={title}
             onChange={(e) => {
@@ -135,7 +135,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
           
           <TextField
             margin="dense"
-            label="Description"
+            label="Opis"
             fullWidth
             multiline
             rows={3}
@@ -153,25 +153,25 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
                   label="Status"
                   onChange={handleStatusChange}
                 >
-                  <MenuItem value="todo">To Do</MenuItem>
-                  <MenuItem value="inProgress">In Progress</MenuItem>
-                  <MenuItem value="done">Done</MenuItem>
+                  <MenuItem value="todo">Do zrobienia</MenuItem>
+                  <MenuItem value="inProgress">W trakcie</MenuItem>
+                  <MenuItem value="done">Zrobione</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth margin="dense">
-                <InputLabel id="priority-label">Priority</InputLabel>
+                <InputLabel id="priority-label">Priorytet</InputLabel>
                 <Select
                   labelId="priority-label"
                   value={priority}
                   label="Priority"
                   onChange={handlePriorityChange}
                 >
-                  <MenuItem value="low">Low</MenuItem>
-                  <MenuItem value="medium">Medium</MenuItem>
-                  <MenuItem value="high">High</MenuItem>
+                  <MenuItem value="low">Niski</MenuItem>
+                  <MenuItem value="medium">Średni</MenuItem>
+                  <MenuItem value="high">Wysoki</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -179,7 +179,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
           
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
-              label="Due Date"
+              label="Data końcowa"
               value={dueDate}
               onChange={(newValue) => setDueDate(newValue)}
               slotProps={{
@@ -193,7 +193,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
           
           <FormControl fullWidth margin="dense">
             <TextField
-              label="Add Tags"
+              label="Dodaj tag"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
               onKeyPress={handleKeyPress}
@@ -211,7 +211,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
                 ),
               }}
             />
-            <FormHelperText>Press Enter or click + to add a tag</FormHelperText>
+            <FormHelperText>Kliknij Enter lub przycisk + aby dodać</FormHelperText>
           </FormControl>
           
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
@@ -227,9 +227,9 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Anuluj</Button>
         <Button onClick={handleSubmit} variant="contained" color="primary">
-          {task ? 'Update' : 'Create'}
+          {task ? 'Zaktualizuj' : 'Stwórz'}
         </Button>
       </DialogActions>
     </Dialog>

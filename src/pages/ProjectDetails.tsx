@@ -42,7 +42,7 @@ const ProjectDetails: React.FC = () => {
           onClick={() => navigate('/')}
           sx={{ mt: 2 }}
         >
-          Back to Lobby
+          Powrót
         </Button>
       </Container>
     );
@@ -55,7 +55,7 @@ const ProjectDetails: React.FC = () => {
         onClick={() => navigate('/')}
         sx={{ mb: 3 }}
       >
-        Back to Lobby
+        Powrót
       </Button>
       
       <Paper elevation={3} sx={{ overflow: 'hidden' }}>
@@ -96,7 +96,7 @@ const ProjectDetails: React.FC = () => {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                Project Details
+                Szczegóły projektu
               </Typography>
               
               <List>
@@ -105,7 +105,7 @@ const ProjectDetails: React.FC = () => {
                     <CodeIcon />
                   </ListItemIcon>
                   <ListItemText 
-                    primary="Technologies" 
+                    primary="Technologie" 
                     secondary={project.technologies.join(', ')} 
                   />
                 </ListItem>
@@ -115,8 +115,8 @@ const ProjectDetails: React.FC = () => {
                     <CalendarIcon />
                   </ListItemIcon>
                   <ListItemText 
-                    primary="Created" 
-                    secondary="January 2023" 
+                    primary="Stworzony" 
+                    secondary="Marzec 2025" 
                   />
                 </ListItem>
                 
@@ -125,8 +125,8 @@ const ProjectDetails: React.FC = () => {
                     <LinkIcon />
                   </ListItemIcon>
                   <ListItemText 
-                    primary="Repository" 
-                    secondary="github.com/username/project" 
+                    primary="Repozytorium chyba prywatne" 
+                    secondary="https://github.com/AntoniRk/project_centre" 
                   />
                 </ListItem>
               </List>
@@ -134,23 +134,23 @@ const ProjectDetails: React.FC = () => {
             
             <Grid item xs={12} md={6}>
               <Typography variant="h6" gutterBottom>
-                Key Features
+                Kluczowe funkcje
               </Typography>
               
               <List sx={{ listStyleType: 'disc', pl: 4 }}>
                 <ListItem sx={{ display: 'list-item' }}>
                   <Typography variant="body2">
-                    Responsive design for all devices
+                    Responsywność na każdym urządzeniu
                   </Typography>
                 </ListItem>
                 <ListItem sx={{ display: 'list-item' }}>
                   <Typography variant="body2">
-                    State management with Redux
+                    Obsługa stanu z Redux
                   </Typography>
                 </ListItem>
                 <ListItem sx={{ display: 'list-item' }}>
                   <Typography variant="body2">
-                    API integration with data caching
+                    Integracja API z cache'owaniem
                   </Typography>
                 </ListItem>
               </List>
@@ -168,7 +168,7 @@ const ProjectDetails: React.FC = () => {
                 startIcon={<LaunchIcon />}
                 onClick={() => navigate(project.path || '/')}
               >
-                Launch Project
+                Uruchom Projekt
               </Button>
             </Box>
           )}

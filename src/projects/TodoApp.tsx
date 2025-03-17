@@ -98,14 +98,14 @@ const TodoApp: React.FC = () => {
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Todo List
+        Lista do zrobienia
         </Typography>
         
         <Box sx={{ display: 'flex', mb: 3 }}>
           <TextField
             fullWidth
             variant="outlined"
-            label="Add a new task"
+            label="Dodaj nowe zadanie"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -113,15 +113,15 @@ const TodoApp: React.FC = () => {
           />
           
           <FormControl sx={{ minWidth: 120 }}>
-            <InputLabel>Priority</InputLabel>
+            <InputLabel>Priorytet</InputLabel>
             <Select
               value={priority}
-              label="Priority"
+              label="Priorytet"
               onChange={handlePriorityChange}
             >
-              <MenuItem value="low">Low</MenuItem>
-              <MenuItem value="medium">Medium</MenuItem>
-              <MenuItem value="high">High</MenuItem>
+              <MenuItem value="low">Niski</MenuItem>
+              <MenuItem value="medium">Średni</MenuItem>
+              <MenuItem value="high">Wysoki</MenuItem>
             </Select>
           </FormControl>
           
@@ -132,7 +132,7 @@ const TodoApp: React.FC = () => {
             onClick={handleAddTodo}
             sx={{ ml: 2 }}
           >
-            Add
+            Dodaj
           </Button>
         </Box>
         
@@ -142,21 +142,21 @@ const TodoApp: React.FC = () => {
             onClick={() => setFilter('all')}
             sx={{ mx: 1 }}
           >
-            All
+            Wszystko
           </Button>
           <Button 
             variant={filter === 'active' ? 'contained' : 'outlined'}
             onClick={() => setFilter('active')}
             sx={{ mx: 1 }}
           >
-            Active
+            Aktywne
           </Button>
           <Button 
             variant={filter === 'completed' ? 'contained' : 'outlined'}
             onClick={() => setFilter('completed')}
             sx={{ mx: 1 }}
           >
-            Completed
+            Skończone
           </Button>
         </Box>
         
@@ -166,7 +166,7 @@ const TodoApp: React.FC = () => {
           {filteredTodos.length === 0 ? (
             <Box sx={{ textAlign: 'center', py: 3 }}>
               <Typography variant="body1" color="text.secondary">
-                No tasks to display
+                Brak zadań do wyświetlenia
               </Typography>
             </Box>
           ) : (
@@ -217,10 +217,10 @@ const TodoApp: React.FC = () => {
         
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3, color: 'text.secondary' }}>
           <Typography variant="body2">
-            {todos.filter(t => !t.completed).length} items left
+            Pozostało {todos.filter(t => !t.completed).length} zadań
           </Typography>
           <Typography variant="body2">
-            {todos.length} total items
+            Łącznie {todos.length} zadań  
           </Typography>
         </Box>
       </Paper>

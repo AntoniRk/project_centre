@@ -14,47 +14,47 @@ export const initialData: TaskBoard = {
     },
     'task-2': {
       id: 'task-2',
-      title: 'Implement authentication',
-      description: 'Add login, registration and password reset',
+      title: 'Przetestuj stronę',
+      description: 'No klikam tam i siam',
       status: 'inProgress',
       priority: 'high',
-      dueDate: new Date(2023, 1, 20),
-      createdAt: new Date(2023, 0, 20),
+      dueDate: new Date(2025, 1, 20),
+      createdAt: new Date(2025, 0, 20),
       tags: ['auth', 'security']
     },
     'task-3': {
       id: 'task-3',
-      title: 'Design dashboard UI',
-      status: 'todo',
+      title: 'Ładne style',
+      status: 'inProgress',
       priority: 'medium',
-      dueDate: new Date(2023, 1, 25),
-      createdAt: new Date(2023, 0, 25),
+      dueDate: new Date(2025, 1, 25),
+      createdAt: new Date(2025, 0, 25),
       tags: ['ui', 'design']
     },
     'task-4': {
       id: 'task-4',
-      title: 'Add data visualization',
-      description: 'Implement charts and graphs for analytics',
+      title: 'Udostępnij',
+      description: 'Wysyłam w ether',
       status: 'todo',
       priority: 'low',
-      createdAt: new Date(2023, 0, 30),
+      createdAt: new Date(2025, 0, 30),
       tags: ['charts', 'data']
     }
   },
   columns: {
     'todo': {
       id: 'todo',
-      title: 'To Do',
+      title: 'Do zrobienia',
       taskIds: ['task-3', 'task-4']
     },
     'inProgress': {
       id: 'inProgress',
-      title: 'In Progress',
+      title: 'W trakcie',
       taskIds: ['task-2']
     },
     'done': {
       id: 'done',
-      title: 'Done',
+      title: 'Zrobione',
       taskIds: ['task-1']
     }
   },

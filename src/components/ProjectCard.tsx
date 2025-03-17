@@ -74,7 +74,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           startIcon={<InfoIcon />}
           onClick={() => navigate(`/project/${project.id}`)}
         >
-          Details
+          Szczegóły
         </Button>
         {project.path && (
           <Button 
@@ -83,7 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             startIcon={<LaunchIcon />}
             onClick={() => navigate(project.path || '/')}
           >
-            Launch
+            Uruchom
           </Button>
         )}
       </CardActions>

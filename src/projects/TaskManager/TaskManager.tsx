@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Paper,
   Button,
   useTheme
 } from '@mui/material';
-import { 
-  DndContext, 
-  DragEndEvent, 
+import {
+  DndContext,
+  DragEndEvent,
   DragOverEvent,
   DragOverlay,
   DragStartEvent,
@@ -30,12 +30,12 @@ const TaskManager: React.FC = () => {
     const savedBoard = localStorage.getItem('taskBoard');
     return savedBoard ? JSON.parse(savedBoard) : initialData;
   });
-  
+
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const theme = useTheme();
-  
+
   // Konfiguracja sensorów dla dnd-kit
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -44,44 +44,44 @@ const TaskManager: React.FC = () => {
       },
     })
   );
-  
+
   // Zapisywanie stanu w localStorage
   useEffect(() => {
     localStorage.setItem('taskBoard', JSON.stringify(board));
   }, [board]);
-  
+
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     setActiveId(active.id as string);
   };
-  
+
   const handleDragOver = (event: DragOverEvent) => {
     const { active, over } = event;
-    
+
     if (!over) return;
-    
+
     const activeId = active.id as string;
     const overId = over.id as string;
-    
+
     // Znajdź źródłową i docelową kolumnę
     const activeColumnId = findColumnOfTask(activeId);
     const overColumnId = findColumnContainingId(overId);
-    
+
     if (!activeColumnId || !overColumnId || activeColumnId === overColumnId) return;
-    
+
     setBoard(prev => {
       const activeColumn = prev.columns[activeColumnId];
       const overColumn = prev.columns[overColumnId];
-      
+
       // Usuń zadanie z aktywnej kolumny
       const newActiveTaskIds = [...activeColumn.taskIds];
       const activeIndex = newActiveTaskIds.indexOf(activeId);
       newActiveTaskIds.splice(activeIndex, 1);
-      
+
       // Dodaj zadanie do docelowej kolumny
       const newOverTaskIds = [...overColumn.taskIds];
       newOverTaskIds.push(activeId);
-      
+
       // Aktualizuj status zadania
       const updatedTasks = {
         ...prev.tasks,
@@ -90,7 +90,7 @@ const TaskManager: React.FC = () => {
           status: overColumnId as TaskStatus
         }
       };
-      
+
       return {
         ...prev,
         tasks: updatedTasks,
@@ -108,30 +108,30 @@ const TaskManager: React.FC = () => {
       };
     });
   };
-  
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     setActiveId(null);
-    
+
     if (!over) return;
-    
+
     const activeId = active.id as string;
     const overId = over.id as string;
-    
+
     if (activeId === overId) return;
-    
+
     const activeColumnId = findColumnOfTask(activeId);
     const overColumnId = findColumnOfTask(overId);
-    
+
     if (activeColumnId && overColumnId && activeColumnId === overColumnId) {
       // Zmiana kolejności w tej samej kolumnie
       setBoard(prev => {
         const column = prev.columns[activeColumnId];
         const oldIndex = column.taskIds.indexOf(activeId);
         const newIndex = column.taskIds.indexOf(overId);
-        
+
         const newTaskIds = arrayMove(column.taskIds, oldIndex, newIndex);
-        
+
         return {
           ...prev,
           columns: {
@@ -145,7 +145,7 @@ const TaskManager: React.FC = () => {
       });
     }
   };
-  
+
   // Funkcja pomocnicza do znalezienia kolumny zawierającej zadanie
   const findColumnOfTask = (taskId: string): string | null => {
     for (const columnId of board.columnOrder) {
@@ -155,39 +155,39 @@ const TaskManager: React.FC = () => {
     }
     return null;
   };
-  
+
   // Funkcja pomocnicza do znalezienia kolumny na podstawie id
   const findColumnContainingId = (id: string): string | null => {
     // Sprawdź, czy id to id kolumny
     if (board.columns[id]) {
       return id;
     }
-    
+
     // Sprawdź, czy id to id zadania i znajdź jego kolumnę
     return findColumnOfTask(id);
   };
-  
+
   const handleAddTask = () => {
     setCurrentTask(null);
     setIsTaskDialogOpen(true);
   };
-  
+
   const handleEditTask = (task: Task) => {
     setCurrentTask(task);
     setIsTaskDialogOpen(true);
   };
-  
+
   const handleDeleteTask = (taskId: string) => {
     const columnId = findColumnOfTask(taskId);
-    
+
     if (!columnId) return;
-    
+
     const column = board.columns[columnId];
     const newTaskIds = column.taskIds.filter(id => id !== taskId);
-    
+
     const newTasks = { ...board.tasks };
     delete newTasks[taskId];
-    
+
     setBoard({
       ...board,
       tasks: newTasks,
@@ -200,19 +200,19 @@ const TaskManager: React.FC = () => {
       }
     });
   };
-  
+
   const handleSaveTask = (task: Task) => {
     const isNewTask = !board.tasks[task.id];
-    
+
     const newTasks = {
       ...board.tasks,
       [task.id]: task
     };
-    
+
     if (isNewTask) {
       const column = board.columns[task.status];
       const newTaskIds = [...column.taskIds, task.id];
-      
+
       setBoard({
         ...board,
         tasks: newTasks,
@@ -226,14 +226,14 @@ const TaskManager: React.FC = () => {
       });
     } else {
       const oldTask = board.tasks[task.id];
-      
+
       if (oldTask.status !== task.status) {
         const sourceColumn = board.columns[oldTask.status];
         const newSourceTaskIds = sourceColumn.taskIds.filter(id => id !== task.id);
-        
+
         const destColumn = board.columns[task.status];
         const newDestTaskIds = [...destColumn.taskIds, task.id];
-        
+
         setBoard({
           ...board,
           tasks: newTasks,
@@ -256,29 +256,29 @@ const TaskManager: React.FC = () => {
         });
       }
     }
-    
+
     setIsTaskDialogOpen(false);
   };
-  
+
   // Znajdź aktywne zadanie dla DragOverlay
   const activeTask = activeId ? board.tasks[activeId] : null;
-  
+
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Typography variant="h4" component="h1">
-          Task Management Board
+          Menedżer zadań
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
+        <Button
+          variant="contained"
+          color="primary"
           startIcon={<AddIcon />}
           onClick={handleAddTask}
         >
-          Add Task
+          Dodaj zadanie
         </Button>
       </Box>
-      
+
       <Paper
         elevation={2}
         sx={{
@@ -293,9 +293,9 @@ const TaskManager: React.FC = () => {
           onDragOver={handleDragOver}
           onDragEnd={handleDragEnd}
         >
-          <Box 
-            sx={{ 
-              display: 'grid', 
+          <Box
+            sx={{
+              display: 'grid',
               gridTemplateColumns: {
                 xs: '1fr',
                 md: 'repeat(3, 1fr)'
@@ -306,7 +306,7 @@ const TaskManager: React.FC = () => {
             {board.columnOrder.map(columnId => {
               const column = board.columns[columnId];
               const tasks = column.taskIds.map(taskId => board.tasks[taskId]);
-              
+
               return (
                 <TaskColumn
                   key={column.id}
@@ -318,20 +318,20 @@ const TaskManager: React.FC = () => {
               );
             })}
           </Box>
-          
+
           <DragOverlay>
             {activeTask ? (
-              <TaskCard 
+              <TaskCard
                 task={activeTask}
-                onEdit={() => {}}
-                onDelete={() => {}}
+                onEdit={() => { }}
+                onDelete={() => { }}
                 isDragging
               />
             ) : null}
           </DragOverlay>
         </DndContext>
       </Paper>
-      
+
       <TaskDialog
         open={isTaskDialogOpen}
         onClose={() => setIsTaskDialogOpen(false)}

@@ -4,7 +4,7 @@ export const projects: Project[] = [
 
     {
         id: 1,
-        title: 'Task Management App',
+        title: 'Menadżer zadań',
         description: 'Aplikacja do zarządzania zadaniami z możliwością dodawania, usuwania, edycji i przenoszenia zadań między kolumnami',
         //        imageUrl: 'https://via.placeholder.com/300x200',
         technologies: ['React', 'TypeScript', 'Material UI', 'DnD-Kit', 'LocalStorage'],
@@ -12,16 +12,15 @@ export const projects: Project[] = [
     },
     {
         id: 2,
-        title: 'Todo Application',
+        title: 'Lista do zrobienia',
         description: 'Lista zadań z możliwością dodawania, usuwania i oznaczania jako wykonane',
-        //        imageUrl: 'https://via.placeholder.com/300x200',
         technologies: ['React', 'TypeScript', 'Material UI', 'LocalStorage'],
         path: '/projects/todo'
     },
     {
         id: 3,
-        title: 'Component Analyzer',
-        description: 'Narzędzie do analizy i optymalizacji wydajności komponentów React',
+        title: 'Inspektor elementów',
+        description: 'Narzędzie do analizy komponentów React, dzikie i głupie.',
         technologies: ['React', 'TypeScript', 'Performance API', 'React Internals'],
         path: '/projects/component-analyzer'
       },

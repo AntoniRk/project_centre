@@ -98,14 +98,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
         '&:active': {
           cursor: 'grabbing'
         },
-        // Dodajemy hover effect, który był na CardActionArea
         '&:hover': {
           backgroundColor: 'action.hover'
         }
       }}
-      onClick={onEdit} // Przenosimy onClick tutaj
+      onClick={onEdit}
     >
-      {/* Zastępujemy CardActionArea zwykłym Box */}
       <Box>
         <CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -173,13 +171,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Edit</ListItemText>
+          <ListItemText>Edytuj</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleDelete}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
+          <ListItemText>Usuń</ListItemText>
         </MenuItem>
       </Menu>
     </Card>

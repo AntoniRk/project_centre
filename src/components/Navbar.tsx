@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 import { 
   Menu as MenuIcon, 
-  Home as HomeIcon, 
   Code as CodeIcon, 
   Info as InfoIcon,
   LightMode as LightModeIcon,
@@ -47,9 +46,8 @@ const Navbar: React.FC = () => {
   };
 
   const menuItems = [
-    { text: 'Home', icon: <HomeIcon />, path: '/' },
-    { text: 'Projects', icon: <CodeIcon />, path: '/' },
-    { text: 'About', icon: <InfoIcon />, path: '/about' }
+    { text: 'Projekty', icon: <CodeIcon />, path: '/' },
+    { text: 'O mnie', icon: <InfoIcon />, path: '/about' }
   ];
 
   const drawer = (
@@ -104,7 +102,7 @@ const Navbar: React.FC = () => {
               letterSpacing: '0.5px'
             }}
           >
-            Projects Lobby
+            Centrum Projektów
           </Typography>
           
           {!isMobile && (

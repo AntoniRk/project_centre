@@ -5,6 +5,7 @@ import { BugReport as BugReportIcon } from '@mui/icons-material';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Lobby from './pages/Lobby';
+import About from './pages/About';
 import ProjectDetails from './pages/ProjectDetails';
 import TodoApp from './projects/TodoApp';
 import TaskManager from './projects/TaskManager/TaskManager';
@@ -21,14 +22,17 @@ const App: React.FC = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Lobby />} />
+          <Route path="/about" element={<About />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/projects/todo" element={<TodoApp />} />
           <Route path="/projects/task-manager" element={<TaskManager />} />
           <Route path="/projects/component-analyzer" element={
             <div style={{ padding: '20px' }}>
-              <h1>Component Analyzer</h1>
-              <p>Aktywuj analizator, aby monitorować wydajność komponentów React na tej stronie.</p>
-              <button 
+              <h1>Inspektor elementów</h1>
+              <p>Aktywuj, aby odkryć tajemnice React (na własną odpowiedzialność). <br></br>
+                Tryb inspekcji tylko dla odważnych.
+              </p>
+              <button
                 onClick={() => setAnalyzerActive(!analyzerActive)}
                 style={{
                   padding: '10px 20px',
@@ -44,19 +48,19 @@ const App: React.FC = () => {
             </div>
           } />
         </Routes>
-        
+
         {/* Nakładka analizatora, aktywowana warunkowo */}
         {analyzerActive && <ComponentAnalyzer />}
-        
+
         {/* Pływający przycisk do szybkiej aktywacji/deaktywacji analizatora */}
         {analyzerActive && (
           <Tooltip title="Wyłącz analizator komponentów">
-            <Fab 
-              color="secondary" 
+            <Fab
+              color="secondary"
               size="medium"
-              style={{ 
-                position: 'fixed', 
-                bottom: 20, 
+              style={{
+                position: 'fixed',
+                bottom: 20,
                 right: 20,
                 zIndex: 10000
               }}

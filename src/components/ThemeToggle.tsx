@@ -51,7 +51,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = (props) => {
   };
   
   return (
-    <Tooltip title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
+    <Tooltip title={isDarkMode ? "Light Mode" : "Dark Mode"}>
       <StyledIconButton {...iconButtonProps}>
         {isDarkMode ? <LightMode /> : <DarkMode />}
       </StyledIconButton>
