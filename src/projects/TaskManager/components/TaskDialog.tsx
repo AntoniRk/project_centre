@@ -40,9 +40,9 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  
+
   const [titleError, setTitleError] = useState('');
-  
+
   // Inicjalizacja formularza przy otwarciu
   useEffect(() => {
     if (task) {
@@ -63,40 +63,40 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
     }
     setTitleError('');
   }, [task, open]);
-  
+
   const handleStatusChange = (event: SelectChangeEvent) => {
     setStatus(event.target.value as TaskStatus);
   };
-  
+
   const handlePriorityChange = (event: SelectChangeEvent) => {
     setPriority(event.target.value as TaskPriority);
   };
-  
+
   const handleAddTag = () => {
     if (tag.trim() !== '' && !tags.includes(tag.trim())) {
       setTags([...tags, tag.trim()]);
       setTag('');
     }
   };
-  
+
   const handleDeleteTag = (tagToDelete: string) => {
     setTags(tags.filter(t => t !== tagToDelete));
   };
-  
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleAddTag();
     }
   };
-  
+
   const handleSubmit = () => {
     // Walidacja
     if (title.trim() === '') {
       setTitleError('Tytuł nie może być pusty');
       return;
     }
-    
+
     const updatedTask: Task = {
       id: task ? task.id : uuidv4(),
       title: title.trim(),
@@ -107,10 +107,10 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
       createdAt: task ? task.createdAt : new Date(),
       tags
     };
-    
+
     onSave(updatedTask);
   };
-  
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{task ? 'Edytuj zadanie' : 'Stwórz nowe zadanie'}</DialogTitle>
@@ -132,7 +132,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
             helperText={titleError}
             required
           />
-          
+
           <TextField
             margin="dense"
             label="Opis"
@@ -142,7 +142,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          
+
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth margin="dense">
@@ -159,7 +159,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
                 </Select>
               </FormControl>
             </Grid>
-            
+
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth margin="dense">
                 <InputLabel id="priority-label">Priorytet</InputLabel>
@@ -176,7 +176,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
               </FormControl>
             </Grid>
           </Grid>
-          
+
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Data końcowa"
@@ -190,7 +190,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
               }}
             />
           </LocalizationProvider>
-          
+
           <FormControl fullWidth margin="dense">
             <TextField
               label="Dodaj tag"
@@ -213,7 +213,7 @@ const TaskDialog: React.FC<TaskDialogProps> = ({ open, onClose, task, onSave }) 
             />
             <FormHelperText>Kliknij Enter lub przycisk + aby dodać</FormHelperText>
           </FormControl>
-          
+
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
             {tags.map(tag => (
               <Chip

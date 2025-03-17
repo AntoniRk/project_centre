@@ -1,20 +1,19 @@
 import React from 'react';
-import { 
-  Card, 
-  CardContent, 
-  Typography, 
-  Box, 
-  Chip, 
-  IconButton, 
-  Menu, 
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Chip,
+  IconButton,
+  Menu,
   MenuItem,
   ListItemIcon,
   ListItemText,
-  // Usuwamy CardActionArea
 } from '@mui/material';
-import { 
-  MoreVert as MoreVertIcon, 
-  Edit as EditIcon, 
+import {
+  MoreVert as MoreVertIcon,
+  Edit as EditIcon,
   Delete as DeleteIcon,
   Label as LabelIcon,
   Schedule as ScheduleIcon
@@ -34,7 +33,7 @@ interface TaskCardProps {
 const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging = false }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  
+
   const {
     attributes,
     listeners,
@@ -42,34 +41,34 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
     transform,
     transition
   } = useSortable({ id: task.id });
-  
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.8 : 1
   };
-  
+
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleEdit = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     handleClose();
     onEdit();
   };
-  
+
   const handleDelete = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     handleClose();
     onDelete();
   };
-  
+
   // Mapowanie priorytetów na kolory
   const getPriorityColor = (priority: TaskPriority) => {
     switch (priority) {
@@ -83,7 +82,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
         return 'default';
     }
   };
-  
+
   return (
     <Card
       ref={setNodeRef}
@@ -122,20 +121,20 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
               <MoreVertIcon />
             </IconButton>
           </Box>
-          
+
           {task.description && (
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               {task.description}
             </Typography>
           )}
-          
+
           <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-            <Chip 
-              size="small" 
-              label={task.priority} 
+            <Chip
+              size="small"
+              label={task.priority}
               color={getPriorityColor(task.priority)}
             />
-            
+
             {task.tags.map(tag => (
               <Chip
                 key={tag}
@@ -146,7 +145,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
               />
             ))}
           </Box>
-          
+
           {task.dueDate && (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ScheduleIcon fontSize="small" color="action" sx={{ mr: 0.5 }} />
@@ -157,7 +156,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit, onDelete, isDragging 
           )}
         </CardContent>
       </Box>
-      
+
       <Menu
         id="task-menu"
         anchorEl={anchorEl}

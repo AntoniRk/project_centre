@@ -23,5 +23,12 @@ export const projects: Project[] = [
         description: 'Narzędzie do analizy komponentów React, dzikie i głupie.',
         technologies: ['React', 'TypeScript', 'Performance API', 'React Internals'],
         path: '/projects/component-analyzer'
-      },
+    },
+    {
+        id: 4,
+        title: "Eksplorator Stylów CSS",
+        description: "Interaktywne narzędzie do eksperymentowania z właściwościami CSS i podglądem zmian w czasie rzeczywistym.",
+        technologies: ["React", "TypeScript", "Material UI", "CSS"],
+        path: "/projects/css-style-explorer"
+    }
 ];

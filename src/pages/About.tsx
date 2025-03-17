@@ -8,31 +8,23 @@ import {
   Divider,
   Chip,
   Avatar,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Link,
   useTheme
 } from '@mui/material';
 import {
   Code as CodeIcon,
   GitHub as GitHubIcon,
-  LinkedIn as LinkedInIcon,
   Email as EmailIcon,
-  School as SchoolIcon,
-  Work as WorkIcon,
   Lightbulb as SkillIcon
 } from '@mui/icons-material';
 
 const About: React.FC = () => {
   const theme = useTheme();
 
-  // Możesz edytować te dane, aby dodać swoje informacje
   const developerInfo = {
     name: "Antoni Roskosz",
     title: "Programista",
-    avatar: "/path/to/your/avatar.jpg", // Dodaj ścieżkę do swojego zdjęcia
+    avatar: "/path/to/your/avatar.jpg", // Dodaj ścieżkę do zdjęcia
     bio: "tak o",
     email: "amroskosz@gmail.com",
     github: "https://github.com/twojusername",

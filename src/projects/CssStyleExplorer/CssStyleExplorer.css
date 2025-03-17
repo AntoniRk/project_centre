@@ -1,0 +1,8 @@
+.css-explorer-preview-element {
+    padding: 20px;
+    min-width: 100px;
+    min-height: 50px;
+    background-color: #f0f0f0;
+    text-align: center;
+    transition: all 0.3s ease;
+}

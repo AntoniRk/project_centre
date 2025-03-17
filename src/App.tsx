@@ -11,13 +11,14 @@ import TodoApp from './projects/TodoApp';
 import TaskManager from './projects/TaskManager/TaskManager';
 import './App.css';
 import ComponentAnalyzer from './projects/ComponentAnalyzer';
+import CssStyleExplorer from './projects/CssStyleExplorer/CssStyleExplorer';
 
 const App: React.FC = () => {
   const [analyzerActive, setAnalyzerActive] = useState(false);
 
   return (
     <ThemeProvider>
-      <CssBaseline /> {/* Reset CSS dla spójnego wyglądu */}
+      <CssBaseline />
       <Router>
         <Navbar />
         <Routes>
@@ -26,6 +27,7 @@ const App: React.FC = () => {
           <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="/projects/todo" element={<TodoApp />} />
           <Route path="/projects/task-manager" element={<TaskManager />} />
+          <Route path="/projects/css-style-explorer" element={<CssStyleExplorer />} />
           <Route path="/projects/component-analyzer" element={
             <div style={{ padding: '20px' }}>
               <h1>Inspektor elementów</h1>
@@ -49,10 +51,8 @@ const App: React.FC = () => {
           } />
         </Routes>
 
-        {/* Nakładka analizatora, aktywowana warunkowo */}
         {analyzerActive && <ComponentAnalyzer />}
 
-        {/* Pływający przycisk do szybkiej aktywacji/deaktywacji analizatora */}
         {analyzerActive && (
           <Tooltip title="Wyłącz analizator komponentów">
             <Fab

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  Card, 
-  CardActions, 
-  CardContent, 
-  CardMedia, 
-  Button, 
-  Typography, 
-  Chip, 
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Chip,
   Box,
   useTheme
 } from '@mui/material';
@@ -22,20 +22,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
-  
+
   return (
-    <Card 
-      sx={{ 
-        height: '100%', 
-        display: 'flex', 
+    <Card
+      sx={{
+        height: '100%',
+        display: 'flex',
         flexDirection: 'column',
         // Dodajemy specjalne style dla trybu ciemnego
-        boxShadow: isDarkMode 
-          ? '0 4px 12px rgba(255, 255, 255, 0.1)' 
+        boxShadow: isDarkMode
+          ? '0 4px 12px rgba(255, 255, 255, 0.1)'
           : '0 4px 12px rgba(0, 0, 0, 0.1)',
         '&:hover': {
-          boxShadow: isDarkMode 
-            ? '0 8px 24px rgba(255, 255, 255, 0.15)' 
+          boxShadow: isDarkMode
+            ? '0 8px 24px rgba(255, 255, 255, 0.15)'
             : '0 8px 24px rgba(0, 0, 0, 0.15)',
         }
       }}
@@ -68,18 +68,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button 
-          size="small" 
-          color="primary" 
+        <Button
+          size="small"
+          color="primary"
           startIcon={<InfoIcon />}
           onClick={() => navigate(`/project/${project.id}`)}
         >
           Szczegóły
         </Button>
         {project.path && (
-          <Button 
-            size="small" 
-            color="secondary" 
+          <Button
+            size="small"
+            color="secondary"
             startIcon={<LaunchIcon />}
             onClick={() => navigate(project.path || '/')}
           >

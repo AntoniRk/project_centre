@@ -1,5 +1,5 @@
 // src/contexts/ThemeContext.tsx
-import React, { createContext, useState, useContext, useEffect, useMemo, ReactNode } from 'react';
+import React, { createContext, useState, useContext, useMemo, ReactNode } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme, PaletteMode } from '@mui/material';
 
 type ThemeContextType = {

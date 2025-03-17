@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  TextField, 
-  Button, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  ListItemIcon, 
-  ListItemSecondaryAction, 
-  IconButton, 
-  Paper, 
-  Divider, 
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  IconButton,
+  Paper,
+  Divider,
   Checkbox,
   Chip,
   FormControl,
@@ -21,10 +21,9 @@ import {
   MenuItem,
   SelectChangeEvent
 } from '@mui/material';
-import { 
-  Delete as DeleteIcon, 
+import {
+  Delete as DeleteIcon,
   Add as AddIcon,
-  FilterList as FilterListIcon 
 } from '@mui/icons-material';
 
 interface Todo {
@@ -42,11 +41,11 @@ const TodoApp: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
-  
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
-  
+
   const handleAddTodo = () => {
     if (inputText.trim() !== '') {
       const newTodo: Todo = {
@@ -59,48 +58,48 @@ const TodoApp: React.FC = () => {
       setInputText('');
     }
   };
-  
+
   const handleToggleTodo = (id: number) => {
     setTodos(
-      todos.map(todo => 
+      todos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
-  
+
   const handleDeleteTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
-  
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleAddTodo();
     }
   };
-  
+
   const handlePriorityChange = (e: SelectChangeEvent) => {
     setPriority(e.target.value as 'low' | 'medium' | 'high');
   };
-  
+
   const filteredTodos = todos.filter(todo => {
     if (filter === 'all') return true;
     if (filter === 'active') return !todo.completed;
     return todo.completed;
   });
-  
+
   const priorityColors = {
     low: 'success',
     medium: 'info',
     high: 'error'
   };
-  
+
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
-        Lista do zrobienia
+          Lista do zrobienia
         </Typography>
-        
+
         <Box sx={{ display: 'flex', mb: 3 }}>
           <TextField
             fullWidth
@@ -111,7 +110,7 @@ const TodoApp: React.FC = () => {
             onKeyPress={handleKeyPress}
             sx={{ mr: 2 }}
           />
-          
+
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Priorytet</InputLabel>
             <Select
@@ -124,7 +123,7 @@ const TodoApp: React.FC = () => {
               <MenuItem value="high">Wysoki</MenuItem>
             </Select>
           </FormControl>
-          
+
           <Button
             variant="contained"
             color="primary"
@@ -135,23 +134,23 @@ const TodoApp: React.FC = () => {
             Dodaj
           </Button>
         </Box>
-        
+
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-          <Button 
+          <Button
             variant={filter === 'all' ? 'contained' : 'outlined'}
             onClick={() => setFilter('all')}
             sx={{ mx: 1 }}
           >
             Wszystko
           </Button>
-          <Button 
+          <Button
             variant={filter === 'active' ? 'contained' : 'outlined'}
             onClick={() => setFilter('active')}
             sx={{ mx: 1 }}
           >
             Aktywne
           </Button>
-          <Button 
+          <Button
             variant={filter === 'completed' ? 'contained' : 'outlined'}
             onClick={() => setFilter('completed')}
             sx={{ mx: 1 }}
@@ -159,9 +158,9 @@ const TodoApp: React.FC = () => {
             Skończone
           </Button>
         </Box>
-        
+
         <Divider sx={{ mb: 3 }} />
-        
+
         <List>
           {filteredTodos.length === 0 ? (
             <Box sx={{ textAlign: 'center', py: 3 }}>
@@ -193,15 +192,15 @@ const TodoApp: React.FC = () => {
                       </Typography>
                     }
                   />
-                  <Chip 
+                  <Chip
                     label={todo.priority}
                     color={priorityColors[todo.priority] as any}
                     size="small"
                     sx={{ mr: 2 }}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton 
-                      edge="end" 
+                    <IconButton
+                      edge="end"
                       aria-label="delete"
                       onClick={() => handleDeleteTodo(todo.id)}
                     >
@@ -214,13 +213,13 @@ const TodoApp: React.FC = () => {
             ))
           )}
         </List>
-        
+
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3, color: 'text.secondary' }}>
           <Typography variant="body2">
             Pozostało {todos.filter(t => !t.completed).length} zadań
           </Typography>
           <Typography variant="body2">
-            Łącznie {todos.length} zadań  
+            Łącznie {todos.length} zadań
           </Typography>
         </Box>
       </Paper>

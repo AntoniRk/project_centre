@@ -3,7 +3,8 @@
 ### Dodane projekty
 - Lista do zrobienia
 - Menedżer zadań
-- Inspektor elementów (tylko na pokaz, po włączeniu...)
+- Inspektor elementów
+- Eksplorator Stylów CSS
 
 ### `npm install`
 ### `npm start`

@@ -17,7 +17,7 @@ import {
   useSensor,
   useSensors
 } from '@dnd-kit/core';
-import { SortableContext, arrayMove } from '@dnd-kit/sortable';
+import { arrayMove } from '@dnd-kit/sortable';
 import { Add as AddIcon } from '@mui/icons-material';
 import TaskColumn from './components/TaskColumn';
 import TaskCard from './components/TaskCard';

@@ -15,9 +15,6 @@ import {
   ListItemText, 
   Container, 
   useMediaQuery, 
-  Tooltip,
-  Switch,
-  FormControlLabel
 } from '@mui/material';
 import { 
   Menu as MenuIcon, 
