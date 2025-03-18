@@ -173,7 +173,8 @@ ${keyframe.properties.map(prop => `    ${prop.property}: ${prop.value};`).join('
               backgroundColor: theme.palette.mode === 'dark' ? '#444' : '#fff',
               border: `1px solid ${theme.palette.mode === 'dark' ? '#555' : '#ddd'}`,
               borderRadius: '4px',
-              display: 'inline-block'
+              display: 'inline-block',
+              transform: 'translate(0)',
             }}
           >
             {elementType === 'text' ? (

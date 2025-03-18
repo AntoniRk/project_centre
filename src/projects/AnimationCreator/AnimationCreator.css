@@ -150,3 +150,22 @@
     background-color: #333;
     color: #fff;
   }
+
+  @media (max-width: 666px) {
+    #chowajtekst {
+      display: none;
+      width: fit-content;
+    }
+    #boxzprzyciskami{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 666px) {
+    #chowajtekst {
+      display: block;
+    }
+  }

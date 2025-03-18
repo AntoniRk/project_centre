@@ -26,6 +26,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import SaveIcon from '@mui/icons-material/Save';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Animation } from './types';
 import { createNewAnimation, generateCssCode, saveAnimation, exportToCssExplorer } from './utils';
 import { presetAnimations } from './presetAnimations';
@@ -194,23 +195,15 @@ const AnimationCreator: React.FC = () => {
 
             <Box sx={{ mb: 4, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                 {presetAnimations.map(preset => (
-                    <Card key={preset.id} sx={{ width: 220, backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#fff' }}>
+                    <Card onClick={() => handleApplyPreset(preset.id)} key={preset.id} sx={{ width: 'fit-content', maxWidth: '300px', backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#fff' }}>
                         <CardContent>
                             <Typography variant="subtitle1" component="div">
                                 {preset.name}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {preset.description}
+                                <span id='chowajtekst'>{preset.description}</span>
                             </Typography>
                         </CardContent>
-                        <CardActions>
-                            <Button
-                                size="small"
-                                onClick={() => handleApplyPreset(preset.id)}
-                            >
-                                Zastosuj
-                            </Button>
-                        </CardActions>
                     </Card>
                 ))}
             </Box>
@@ -316,13 +309,13 @@ const AnimationCreator: React.FC = () => {
                     </Grid>
                 </Grid>
 
-                <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
+                <Box id="boxzprzyciskami" sx={{ mt: 3, display: 'flex', gap: 2 }}>
                     <Button
                         variant="contained"
                         startIcon={isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                         onClick={handleTogglePlay}
                     >
-                        {isPlaying ? 'Zatrzymaj' : 'Odtwórz'}
+                        <span id="chowajtekst">{isPlaying ? 'Zatrzymaj' : 'Odtwórz'}</span>
                     </Button>
 
                     <Button
@@ -331,7 +324,7 @@ const AnimationCreator: React.FC = () => {
                         onClick={handleResetPosition}
                         title="Resetuje pozycję elementu do stanu początkowego"
                     >
-                        Resetuj pozycję
+                        <span id="chowajtekst">Resetuj pozycję</span>
                     </Button>
 
                     <Button
@@ -339,15 +332,15 @@ const AnimationCreator: React.FC = () => {
                         startIcon={<SaveIcon />}
                         onClick={handleSaveAnimation}
                     >
-                        Zapisz animację
+                        <span id="chowajtekst">Zapisz animację</span>
                     </Button>
 
                     <Button
                         variant="outlined"
-                        startIcon={<RefreshIcon />}
+                        startIcon={<DeleteIcon />}
                         onClick={handleResetAnimation}
                     >
-                        Resetuj
+                        <span id="chowajtekst">Resetuj</span>
                     </Button>
                 </Box>
             </Paper>
