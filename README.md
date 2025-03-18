@@ -6,6 +6,7 @@
 - Inspektor elementów 14.03.2025r.
 - Eksplorator Stylów CSS 17.03.2025r.
 - Kreator Animacji CSS 18.03.2025r.
+- Math Solver 18.03.2025r.
 
 ## https://project-centre.vercel.app/
 

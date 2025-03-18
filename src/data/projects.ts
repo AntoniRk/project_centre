@@ -37,5 +37,12 @@ export const projects: Project[] = [
         description: "18.03.25r. Kreator animacji CSS z podglądem w czasie rzeczywistym i możliwością eksportu kodu CSS.",
         technologies: ["React", "TypeScript", "Material UI", "CSS", "localStorage"],
         path: "/projects/animation-creator"
+    },
+    {
+        id: 6,
+        title: "Zaawansowany system matematyczny",
+        description: "18.03.25r. Pomysł wstępny to pole tekstowe z przyciskami zawierającymi różnorodne znaki i funkcje matematyczne. Celem aplikacji jest poprawna identyfikacja kolejności wykonywania czynności i krok po kroku rozwiązywanie danego zadania, dążenie do wyniku, lub maksymalne uproszczenie.",
+        technologies: ["React", "TypeScript", "Material UI", "CSS", "localStorage"],
+        path: "/projects/math-solver"
     }
 ];
