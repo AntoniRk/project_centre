@@ -192,13 +192,10 @@ const AnimationTimeline: React.FC<AnimationTimelineProps> = ({
           width: 'calc(100% - 16px)' // Kompensujemy margines
         }}
       >
-        {/* Markery procentowe */}
-        {[0, 25, 50, 75, 100].map(percent => (
           <Box 
-            key={percent} 
             sx={{ 
               position: 'absolute', 
-              left: `${percent}%`, 
+              left: 0, 
               top: 0, 
               bottom: 0, 
               width: 1, 
@@ -206,7 +203,7 @@ const AnimationTimeline: React.FC<AnimationTimelineProps> = ({
               zIndex: 1
             }}
           />
-        ))}
+
         
         {/* Etykiety procentowe */}
         {[0, 25, 50, 75, 100].map(percent => (
