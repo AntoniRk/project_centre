@@ -1,0 +1,152 @@
+.animation-timeline {
+    position: relative;
+    height: 60px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  
+  .animation-timeline-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #bdbdbd;
+    z-index: 1;
+  }
+  
+  .animation-timeline-label {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .animation-keyframe {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+  
+  .animation-keyframe:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  }
+  
+  .keyframe-list-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .keyframe-list-item:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .keyframe-list-item.selected {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .keyframe-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .property-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .animation-preview {
+    padding: 16px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .preview-element {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  
+  .preview-box {
+    width: 100px;
+    height: 100px;
+    background-color: #3f51b5;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .code-output {
+    padding: 16px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow: auto;
+  }
+  
+  /* Tryb ciemny */
+  .dark-mode .animation-timeline {
+    background-color: #333;
+  }
+  
+  .dark-mode .animation-timeline-marker {
+    background-color: #555;
+  }
+  
+  .dark-mode .animation-timeline-label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .dark-mode .keyframe-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .dark-mode .keyframe-list-item.selected {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .dark-mode .property-item {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .dark-mode .animation-preview {
+    background-color: #333;
+  }
+  
+  .dark-mode .preview-element {
+    background-color: #444;
+    border-color: #555;
+  }
+  
+  .dark-mode .code-output {
+    background-color: #333;
+    color: #fff;
+  }

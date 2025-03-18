@@ -30,5 +30,12 @@ export const projects: Project[] = [
         description: "Interaktywne narzędzie do eksperymentowania z właściwościami CSS i podglądem zmian w czasie rzeczywistym.",
         technologies: ["React", "TypeScript", "Material UI", "CSS"],
         path: "/projects/css-style-explorer"
+    },
+    {
+        id: 5,
+        title: "Kreator Animacji CSS",
+        description: "Kreator animacji CSS z podglądem w czasie rzeczywistym i możliwością eksportu kodu CSS.",
+        technologies: ["React", "TypeScript", "Material UI", "CSS", "localStorage"],
+        path: "/projects/animation-creator"
     }
 ];

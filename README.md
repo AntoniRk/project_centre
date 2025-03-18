@@ -5,6 +5,7 @@
 - Menedżer zadań
 - Inspektor elementów
 - Eksplorator Stylów CSS
+- Kreator Animacji CSS
 
 ### `npm install`
 ### `npm start`
