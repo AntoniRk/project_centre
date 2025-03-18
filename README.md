@@ -7,7 +7,7 @@
 - Eksplorator Stylów CSS 17.03.2025r.
 - Kreator Animacji CSS 18.03.2025r.
 
-## https://project-centre-git-master-antonirks-projects.vercel.app/
+## https://project-centre.vercel.app/
 
 ### `npm install`
 ### `npm start`
