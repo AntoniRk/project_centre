@@ -16,6 +16,14 @@ const MathDisplay: React.FC<MathDisplayProps> = ({ expression }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Funkcja do renderowania wyrażenia matematycznego
+    const renderMath = () => {
+      if (window.MathJax && containerRef.current) {
+        containerRef.current.innerHTML = `\\[${expression}\\]`;
+        window.MathJax.typeset([containerRef.current]);
+      }
+    };
+
     // Załaduj MathJax jeśli jeszcze nie jest załadowany
     if (!window.MathJax) {
       const script = document.createElement('script');
@@ -24,19 +32,12 @@ const MathDisplay: React.FC<MathDisplayProps> = ({ expression }) => {
       document.head.appendChild(script);
       
       script.onload = () => {
-        renderMath();
+        renderMath(); // Wywołaj renderMath po załadowaniu skryptu
       };
     } else {
-      renderMath();
+      renderMath(); // Wywołaj renderMath jeśli MathJax jest już załadowany
     }
-  }, [expression]);
-
-  const renderMath = () => {
-    if (window.MathJax && containerRef.current) {
-      containerRef.current.innerHTML = `\\[${expression}\\]`;
-      window.MathJax.typeset([containerRef.current]);
-    }
-  };
+  }, [expression]); // Zależność od expression
 
   return (
     <Box 

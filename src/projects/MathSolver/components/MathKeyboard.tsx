@@ -129,7 +129,7 @@ const MathKeyboard: React.FC<MathKeyboardProps> = ({ onButtonClick }) => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Wyczyść wszystko">
-            <IconButton onClick={() => onButtonClick('\c')} size="small" color="error">
+            <IconButton onClick={() => onButtonClick('c')} size="small" color="error">
               <ClearIcon />
             </IconButton>
           </Tooltip>

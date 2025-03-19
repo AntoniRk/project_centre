@@ -10,7 +10,7 @@ import { Expression, SolutionStep } from './types';
 
 const MathSolver: React.FC = () => {
     const [expression, setExpression] = useState<string>('');
-    const [parsedExpression, setParsedExpression] = useState<Expression | null>(null);
+    const [parsedExpression, setParsedExpression] = useState<Expression | null>(null); // eslint-disable-line @typescript-eslint/no-unused-vars
     const [solutionSteps, setSolutionSteps] = useState<SolutionStep[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
