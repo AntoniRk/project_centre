@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './HighStacks.css';
 
 interface Block {
@@ -29,7 +29,10 @@ const HighStacks: React.FC = () => {
   const GAME_HEIGHT = 500;
   const BLOCK_HEIGHT = 30;
   const INITIAL_BLOCK_WIDTH = 80;
-  const COLORS = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#54a0ff', '#5f27cd'];
+
+  // Use useMemo to memoize the COLORS array
+  const COLORS = useMemo(() => ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#54a0ff', '#5f27cd'], []);
+
   const MAX_SWING = GAME_WIDTH - INITIAL_BLOCK_WIDTH;
 
   useEffect(() => {
@@ -39,12 +42,12 @@ const HighStacks: React.FC = () => {
         position: { x: GAME_WIDTH / 2 - INITIAL_BLOCK_WIDTH / 2, y: GAME_HEIGHT - BLOCK_HEIGHT },
         size: { width: INITIAL_BLOCK_WIDTH, height: BLOCK_HEIGHT },
         color: COLORS[0],
-        perfect: true
+        perfect: true,
       };
       setBlocks([baseBlock]);
       setCurrentBlockId(1);
     }
-  }, [gameStarted, gameOver]);
+  }, [gameStarted, gameOver, COLORS]);
 
   useEffect(() => {
     if (!gameStarted || gameOver) return;
@@ -72,7 +75,7 @@ const HighStacks: React.FC = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [gameStarted, gameOver, swingDirection, blockSpeed]);
+  }, [gameStarted, gameOver, swingDirection, blockSpeed, MAX_SWING]);
 
   useEffect(() => {
     if (blocks.length > 0 && blocks.length % 5 === 0) {
@@ -130,17 +133,17 @@ const HighStacks: React.FC = () => {
       id: currentBlockId,
       position: {
         x: newBlockX + offsetX,
-        y: prevBlock.position.y - BLOCK_HEIGHT
+        y: prevBlock.position.y - BLOCK_HEIGHT,
       },
       size: {
         width: isPerfect ? prevBlock.size.width : newWidth,
-        height: BLOCK_HEIGHT
+        height: BLOCK_HEIGHT,
       },
       color: COLORS[currentBlockId % COLORS.length],
-      perfect: isPerfect
+      perfect: isPerfect,
     };
 
-    const pointsEarned = isPerfect ? 10 : Math.floor(overlapWidth / blockWidth * 5);
+    const pointsEarned = isPerfect ? 10 : Math.floor((overlapWidth / blockWidth) * 5);
     setScore((prev) => prev + pointsEarned);
 
     setBlocks((prev) => [...prev, newBlock]);
@@ -163,7 +166,7 @@ const HighStacks: React.FC = () => {
     setCurrentBlockId(0);
     setBlockSpeed(2);
     setLevel(1);
-    setGameStarted(true); // Ustawienie gameStarted na true, aby ponownie zainicjować grę
+    setGameStarted(true);
 
     if (gameAreaRef.current) {
       const blocksContainer = gameAreaRef.current.querySelector('.blocks-container') as HTMLElement;
@@ -175,6 +178,13 @@ const HighStacks: React.FC = () => {
 
   return (
     <div className="high-stacks">
+      <h1>High Stacks</h1>
+
+      <div className="game-stats">
+        <div className="score">Punkty: {score}</div>
+        <div className="level">Poziom: {level}</div>
+      </div>
+
       <div className="game-area" ref={gameAreaRef}>
         {!gameStarted && !gameOver ? (
           <div className="start-screen">
@@ -206,7 +216,7 @@ const HighStacks: React.FC = () => {
                     height: `${block.size.height}px`,
                     left: `${block.position.x}px`,
                     bottom: `${GAME_HEIGHT - block.position.y}px`,
-                    backgroundColor: block.color
+                    backgroundColor: block.color,
                   }}
                 />
               ))}
@@ -219,17 +229,13 @@ const HighStacks: React.FC = () => {
                     height: `${BLOCK_HEIGHT}px`,
                     left: `${swingPosition}px`,
                     bottom: `${GAME_HEIGHT - blocks[blocks.length - 1].position.y + BLOCK_HEIGHT + blockDistance}px`,
-                    backgroundColor: COLORS[currentBlockId % COLORS.length]
+                    backgroundColor: COLORS[currentBlockId % COLORS.length],
                   }}
                 />
               )}
             </div>
 
-            <button
-              className="drop-button"
-              onClick={dropBlock}
-              disabled={gameOver}
-            >
+            <button className="drop-button" onClick={dropBlock} disabled={gameOver}>
               UPUŚĆ!
             </button>
           </>
@@ -250,10 +256,7 @@ const HighStacks: React.FC = () => {
         </label>
         <label>
           Poziom trudności:
-          <select
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-          >
+          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
             <option value="veryeasy">Bardzo Łatwy</option>
             <option value="easy">Łatwy</option>
             <option value="medium">Średni</option>
