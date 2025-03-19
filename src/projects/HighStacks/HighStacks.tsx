@@ -21,6 +21,7 @@ const HighStacks: React.FC = () => {
   const [level, setLevel] = useState(1);
   const [blockDistance, setBlockDistance] = useState(30);
   const [difficulty, setDifficulty] = useState('medium');
+  const [fallingAnimation, setFallingAnimation] = useState(false);
 
   const gameAreaRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
@@ -30,7 +31,6 @@ const HighStacks: React.FC = () => {
   const BLOCK_HEIGHT = 30;
   const INITIAL_BLOCK_WIDTH = 80;
 
-  // Use useMemo to memoize the COLORS array
   const COLORS = useMemo(() => ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#54a0ff', '#5f27cd'], []);
 
   const MAX_SWING = GAME_WIDTH - INITIAL_BLOCK_WIDTH;
@@ -39,7 +39,7 @@ const HighStacks: React.FC = () => {
     if (gameStarted && !gameOver) {
       const baseBlock: Block = {
         id: 0,
-        position: { x: GAME_WIDTH / 2 - INITIAL_BLOCK_WIDTH / 2, y: GAME_HEIGHT - BLOCK_HEIGHT },
+        position: { x: GAME_WIDTH / 2 - INITIAL_BLOCK_WIDTH / 2, y: GAME_HEIGHT - BLOCK_HEIGHT - 100},
         size: { width: INITIAL_BLOCK_WIDTH, height: BLOCK_HEIGHT },
         color: COLORS[0],
         perfect: true,
@@ -107,7 +107,7 @@ const HighStacks: React.FC = () => {
   }, [difficulty]);
 
   const dropBlock = () => {
-    if (!gameStarted || gameOver || blocks.length === 0) return;
+    if (!gameStarted || gameOver || blocks.length === 0 || fallingAnimation) return;
 
     const prevBlock = blocks[blocks.length - 1];
     const blockWidth = prevBlock.size.width;
@@ -120,7 +120,11 @@ const HighStacks: React.FC = () => {
     const overlapWidth = Math.min(leftOverlap, rightOverlap);
 
     if (overlapWidth <= 0) {
-      setGameOver(true);
+      setFallingAnimation(true);
+      setTimeout(() => {
+        setGameOver(true);
+        setFallingAnimation(false);
+      }, 1000); // Czas trwania animacji spadania
       return;
     }
 
@@ -216,7 +220,7 @@ const HighStacks: React.FC = () => {
 
               {blocks.length > 0 && (
                 <div
-                  className="current-block"
+                  className={`current-block ${fallingAnimation ? 'falling-out' : ''}`}
                   style={{
                     width: `${blocks[blocks.length - 1].size.width}px`,
                     height: `${BLOCK_HEIGHT}px`,
@@ -228,7 +232,7 @@ const HighStacks: React.FC = () => {
               )}
             </div>
 
-            <button className="drop-button" onClick={dropBlock} disabled={gameOver}>
+            <button className="drop-button" onClick={dropBlock} disabled={gameOver || fallingAnimation}>
               UPUŚĆ!
             </button>
           </>

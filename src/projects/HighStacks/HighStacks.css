@@ -56,7 +56,7 @@
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px 20px;
+  padding: 20px 30px;
   font-size: 18px;
   font-weight: bold;
   background-color: #ff4757;
@@ -160,4 +160,15 @@
   margin-left: 10px;
   padding: 5px;
   border-radius: 4px;
+}
+
+.falling-out {
+  animation: fallOut 1s forwards;
+}
+
+@keyframes fallOut {
+  to {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
 }
