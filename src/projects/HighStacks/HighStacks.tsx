@@ -14,23 +14,24 @@ const HighStacks: React.FC = () => {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  const [swingDirection, setSwingDirection] = useState(1); // 1 for right, -1 for left
+  const [swingDirection, setSwingDirection] = useState(1);
   const [swingPosition, setSwingPosition] = useState(0);
   const [currentBlockId, setCurrentBlockId] = useState(0);
-  const [blockSpeed, setBlockSpeed] = useState(2); // pixels per frame
+  const [blockSpeed, setBlockSpeed] = useState(2);
   const [level, setLevel] = useState(1);
-  
+  const [blockDistance, setBlockDistance] = useState(30);
+  const [difficulty, setDifficulty] = useState('medium');
+
   const gameAreaRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
-  
+
   const GAME_WIDTH = 300;
   const GAME_HEIGHT = 500;
   const BLOCK_HEIGHT = 30;
   const INITIAL_BLOCK_WIDTH = 80;
   const COLORS = ['#ff6b6b', '#48dbfb', '#1dd1a1', '#feca57', '#54a0ff', '#5f27cd'];
   const MAX_SWING = GAME_WIDTH - INITIAL_BLOCK_WIDTH;
-  
-  // Initialize the base block
+
   useEffect(() => {
     if (gameStarted && !gameOver) {
       const baseBlock: Block = {
@@ -43,12 +44,11 @@ const HighStacks: React.FC = () => {
       setBlocks([baseBlock]);
       setCurrentBlockId(1);
     }
-  }, [gameStarted]);
+  }, [gameStarted, gameOver]);
 
-  // Game loop
   useEffect(() => {
     if (!gameStarted || gameOver) return;
-    
+
     const updateGame = () => {
       setSwingPosition((prev) => {
         let newPos = prev + blockSpeed * swingDirection;
@@ -61,12 +61,12 @@ const HighStacks: React.FC = () => {
         }
         return newPos;
       });
-      
+
       animationRef.current = requestAnimationFrame(updateGame);
     };
-    
+
     animationRef.current = requestAnimationFrame(updateGame);
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -74,7 +74,6 @@ const HighStacks: React.FC = () => {
     };
   }, [gameStarted, gameOver, swingDirection, blockSpeed]);
 
-  // Handle level progression
   useEffect(() => {
     if (blocks.length > 0 && blocks.length % 5 === 0) {
       setLevel((prevLevel) => prevLevel + 1);
@@ -82,57 +81,71 @@ const HighStacks: React.FC = () => {
     }
   }, [blocks.length]);
 
+  useEffect(() => {
+    switch (difficulty) {
+      case 'veryeasy':
+        setBlockSpeed(1);
+        break;
+      case 'easy':
+        setBlockSpeed(2);
+        break;
+      case 'medium':
+        setBlockSpeed(3);
+        break;
+      case 'hard':
+        setBlockSpeed(4);
+        break;
+      case 'veryhard':
+        setBlockSpeed(5);
+        break;
+      default:
+        setBlockSpeed(3);
+    }
+  }, [difficulty]);
+
   const dropBlock = () => {
-    if (!gameStarted || gameOver) return;
-    
+    if (!gameStarted || gameOver || blocks.length === 0) return;
+
     const prevBlock = blocks[blocks.length - 1];
     const blockWidth = prevBlock.size.width;
-    
-    // Calculate new block position and overlap
+
     const newBlockX = swingPosition;
     const prevBlockX = prevBlock.position.x;
-    
+
     const leftOverlap = Math.max(0, prevBlockX + prevBlock.size.width - newBlockX);
     const rightOverlap = Math.max(0, newBlockX + blockWidth - prevBlockX);
     const overlapWidth = Math.min(leftOverlap, rightOverlap);
-    
-    // Check if there's any overlap
+
     if (overlapWidth <= 0) {
       setGameOver(true);
       return;
     }
-    
-    // Calculate new block width (based on overlap)
+
     const newWidth = Math.min(blockWidth, overlapWidth);
     const offsetX = newBlockX > prevBlockX ? 0 : blockWidth - newWidth;
-    
-    // Check if it's a perfect placement
+
     const isPerfect = Math.abs(prevBlockX - newBlockX) < 5;
-    
-    // Create new block
+
     const newBlock: Block = {
       id: currentBlockId,
-      position: { 
-        x: newBlockX + offsetX, 
-        y: prevBlock.position.y - BLOCK_HEIGHT 
+      position: {
+        x: newBlockX + offsetX,
+        y: prevBlock.position.y - BLOCK_HEIGHT
       },
-      size: { 
-        width: isPerfect ? prevBlock.size.width : newWidth, 
-        height: BLOCK_HEIGHT 
+      size: {
+        width: isPerfect ? prevBlock.size.width : newWidth,
+        height: BLOCK_HEIGHT
       },
       color: COLORS[currentBlockId % COLORS.length],
       perfect: isPerfect
     };
-    
-    // Update score
+
     const pointsEarned = isPerfect ? 10 : Math.floor(overlapWidth / blockWidth * 5);
     setScore((prev) => prev + pointsEarned);
-    
-    // Add new block to the stack
+
     setBlocks((prev) => [...prev, newBlock]);
     setCurrentBlockId((prev) => prev + 1);
-    
-    // Shift the view if blocks reach a certain height
+
     if (gameAreaRef.current && newBlock.position.y < GAME_HEIGHT / 2) {
       const blocksContainer = gameAreaRef.current.querySelector('.blocks-container') as HTMLElement;
       if (blocksContainer) {
@@ -145,13 +158,13 @@ const HighStacks: React.FC = () => {
     setBlocks([]);
     setScore(0);
     setGameOver(false);
-    setGameStarted(true);
     setSwingDirection(1);
     setSwingPosition(0);
     setCurrentBlockId(0);
     setBlockSpeed(2);
     setLevel(1);
-    
+    setGameStarted(true); // Ustawienie gameStarted na true, aby ponownie zainicjować grę
+
     if (gameAreaRef.current) {
       const blocksContainer = gameAreaRef.current.querySelector('.blocks-container') as HTMLElement;
       if (blocksContainer) {
@@ -161,14 +174,7 @@ const HighStacks: React.FC = () => {
   };
 
   return (
-    <div className="tower-bloxx">
-      <h1>High Stacks</h1>
-      
-      <div className="game-stats">
-        <div className="score">Punkty: {score}</div>
-        <div className="level">Poziom: {level}</div>
-      </div>
-      
+    <div className="high-stacks">
       <div className="game-area" ref={gameAreaRef}>
         {!gameStarted && !gameOver ? (
           <div className="start-screen">
@@ -204,8 +210,7 @@ const HighStacks: React.FC = () => {
                   }}
                 />
               ))}
-              
-              {/* Current swinging block */}
+
               {blocks.length > 0 && (
                 <div
                   className="current-block"
@@ -213,13 +218,13 @@ const HighStacks: React.FC = () => {
                     width: `${blocks[blocks.length - 1].size.width}px`,
                     height: `${BLOCK_HEIGHT}px`,
                     left: `${swingPosition}px`,
-                    bottom: `${GAME_HEIGHT - blocks[blocks.length - 1].position.y + BLOCK_HEIGHT * 3}px`,
+                    bottom: `${GAME_HEIGHT - blocks[blocks.length - 1].position.y + BLOCK_HEIGHT + blockDistance}px`,
                     backgroundColor: COLORS[currentBlockId % COLORS.length]
                   }}
                 />
               )}
             </div>
-            
+
             <button
               className="drop-button"
               onClick={dropBlock}
@@ -230,7 +235,34 @@ const HighStacks: React.FC = () => {
           </>
         )}
       </div>
-      
+
+      <div className="options">
+        <h3>Opcje:</h3>
+        <label>
+          Dystans między blokami:
+          <input
+            type="range"
+            min="15"
+            max="50"
+            value={blockDistance}
+            onChange={(e) => setBlockDistance(parseInt(e.target.value))}
+          />
+        </label>
+        <label>
+          Poziom trudności:
+          <select
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+          >
+            <option value="veryeasy">Bardzo Łatwy</option>
+            <option value="easy">Łatwy</option>
+            <option value="medium">Średni</option>
+            <option value="hard">Trudny</option>
+            <option value="veryhard">Bardzo Trudny</option>
+          </select>
+        </label>
+      </div>
+
       <div className="instructions">
         <h3>Jak grać:</h3>
         <p>1. Kliknij przycisk "UPUŚĆ!" gdy poruszający się blok znajdzie się nad wieżą</p>

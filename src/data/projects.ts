@@ -48,7 +48,7 @@ export const projects: Project[] = [
     {
         id: 7,
         title: "High Stacks",
-        description: "19.03.25r. Gra w stylu Tower Bloxx.",
+        description: "19.03.25r. Gra o upuszczaniu bloków w odpowniednim momencie. Na podstawie gry Tower Bloxx.",
         technologies: ["React", "TypeScript", "CSS"],
         path: "/projects/high-stacks"
     }
