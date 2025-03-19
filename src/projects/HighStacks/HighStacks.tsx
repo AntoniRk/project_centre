@@ -192,7 +192,7 @@ const HighStacks: React.FC = () => {
             </button>
           </div>
         ) : gameOver ? (
-          <div className="game-over-screen">
+          <div className="game-over-screen" style={{ transform: 'translateY(0)' }}>
             <h2>Koniec gry!</h2>
             <p>Twój wynik: {score}</p>
             <p>Poziom: {level}</p>
