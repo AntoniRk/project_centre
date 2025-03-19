@@ -178,13 +178,6 @@ const HighStacks: React.FC = () => {
 
   return (
     <div className="high-stacks">
-      <h1>High Stacks</h1>
-
-      <div className="game-stats">
-        <div className="score">Punkty: {score}</div>
-        <div className="level">Poziom: {level}</div>
-      </div>
-
       <div className="game-area" ref={gameAreaRef}>
         {!gameStarted && !gameOver ? (
           <div className="start-screen">
