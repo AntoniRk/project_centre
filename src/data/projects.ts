@@ -40,9 +40,16 @@ export const projects: Project[] = [
     },
     {
         id: 6,
-        title: "Zaawansowany system matematyczny",
-        description: "18.03.25r. Pomysł wstępny to pole tekstowe z przyciskami zawierającymi różnorodne znaki i funkcje matematyczne. Celem aplikacji jest poprawna identyfikacja kolejności wykonywania czynności i krok po kroku rozwiązywanie danego zadania, dążenie do wyniku, lub maksymalne uproszczenie.",
+        title: "Math Solver",
+        description: "18.03.25r. Kalkulator przedstawiający rozwiązania krok po kroku (niedokończone).",
         technologies: ["React", "TypeScript", "Material UI", "CSS", "localStorage"],
         path: "/projects/math-solver"
+    },
+    {
+        id: 7,
+        title: "High Stacks",
+        description: "19.03.25r. Gra w stylu Tower Bloxx.",
+        technologies: ["React", "TypeScript", "CSS"],
+        path: "/projects/high-stacks"
     }
 ];

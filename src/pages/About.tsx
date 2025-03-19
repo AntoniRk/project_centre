@@ -51,7 +51,7 @@ const About: React.FC = () => {
           p: 4,
           mb: 4,
           borderRadius: 2,
-          background: theme.palette.mode === 'dark' ? '#4a1801' : '#d94907',
+          background: theme.palette.mode === 'dark' ? '#7a0301' : theme.palette.primary.main,
           color: 'white' 
         }}
       >
