@@ -51,5 +51,12 @@ export const projects: Project[] = [
         description: "19.03.25r. Gra o upuszczaniu bloków w odpowniednim momencie. Na podstawie gry Tower Bloxx.",
         technologies: ["React", "TypeScript", "CSS"],
         path: "/projects/high-stacks"
+    },
+    {
+        id: 8,
+        title: "Scrabble Remix",
+        description: "20.03.25r. Gra polegająca na układaniu słów z dostępnych liter z wykorzystaniem mechanizmu drag and drop.",
+        technologies: ["React", "TypeScript", "DnD-Kit", "CSS", "Dictionary API"],
+        path: "/projects/scrabble-remix"
     }
 ];

@@ -15,6 +15,7 @@ import CssStyleExplorer from './projects/CssStyleExplorer/CssStyleExplorer';
 import AnimationCreator from './projects/AnimationCreator';
 import MathSolver from './projects/MathSolver/MathSolver';
 import HighStacks from './projects/HighStacks/HighStacks';
+import ScrabbleRemix from './projects/ScrabbleRemix/ScrabbleRemix';
 
 const App: React.FC = () => {
   const [analyzerActive, setAnalyzerActive] = useState(false);
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route path="/projects/animation-creator" element={<AnimationCreator />} />
           <Route path="/projects/math-solver" element={<MathSolver />} />
           <Route path="/projects/high-stacks" element={<HighStacks />} />
+          <Route path="/projects/scrabble-remix" element={<ScrabbleRemix />} />
           <Route path="/projects/component-analyzer" element={
             <div style={{ padding: '20px' }}>
               <h1>Inspektor elementów</h1>
